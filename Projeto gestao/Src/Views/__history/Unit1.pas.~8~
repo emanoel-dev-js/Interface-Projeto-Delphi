@@ -1,0 +1,88 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, ExtCtrls, IBStoredProc, DB, IBCustomDataSet,
+  IBQuery;
+
+type
+  TForm1 = class(TForm)
+    Panel1: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    pnlTopo: TPanel;
+    pnlConteudo: TPanel;
+    lblClientes: TLabel;
+    lblCOMFIRMAR: TLabel;
+    CLIE_NOME: TEdit;
+    btnGRAVAR: TSpeedButton;
+    CLIE_TIPO_PESSOA: TComboBox;
+    CLIE_SEXO: TComboBox;
+    StaticText1: TStaticText;
+    StaticText2: TStaticText;
+    StaticText3: TStaticText;
+    CHAVE: TEdit;
+    StaticText4: TStaticText;
+    QryCliente: TIBQuery;
+    SP_CLIENTE: TIBStoredProc;
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure btnGRAVARClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+USES
+  View.principal;
+
+{$R *.dfm}
+
+procedure TForm1.btnGRAVARClick(Sender: TObject);
+begin
+
+if Not (ViewPrincipal.TrBanco.InTransaction) then
+  ViewPrincipal.TrBanco.StartTransaction;
+
+try
+  with SP_CLIENTE do
+  begin
+    ParamByName('CHAVE').AsInteger := StrToIntDef(Chave.Text, 0);
+    ParamByName('CLIE_NOME').AsString := CLIE_NOME.Text;
+
+    if (CLIE_TIPO_PESSOA.Text = 'FISICO') then
+      ParamByName('CLIE_TIPO_PESSOA').AsString := 'F'
+    else
+      ParamByName('CLIE_TIPO_PESSOA').AsString := 'J;'
+
+    if (CLIE_SEXO.Text = 'HOMEM') then
+      ParamByName('CLIE_SEXO').AsString := 'H'
+    else
+      ParamByName('CLIE_SEXO').AsString := 'M';
+
+    ExecProc;
+  end;
+Except on E:Exception do
+   begin
+     showmessage('Erro:'+E.message+#13+'Operação Cancelada');
+     ViewPrincipal.TrBanco.Rollback;
+     Abort;
+   end;
+end;
+   showmessage('REGISTRO GRAVADO COM SUCESSO!');
+   ViewPrincipal.TrBanco.Commit;
+end;
+
+procedure TForm1.SpeedButton2Click(Sender: TObject);
+begin
+ Close
+end;
+
+end.

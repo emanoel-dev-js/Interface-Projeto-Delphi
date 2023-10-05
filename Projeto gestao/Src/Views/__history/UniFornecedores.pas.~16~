@@ -1,0 +1,135 @@
+unit UniFornecedores;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, IBQuery, DB, IBCustomDataSet, IBStoredProc;
+
+type
+  TFrmFornecedores = class(TForm)
+    pnlRodaPe: TPanel;
+    pnlTopo: TPanel;
+    pnlconteudo: TPanel;
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    lbl3: TLabel;
+    lbl4: TLabel;
+    lbl5: TLabel;
+    lbl6: TLabel;
+    lbl7: TLabel;
+    SP_FORNECEDORES: TIBStoredProc;
+    QryFornecedores: TIBQuery;
+    pnlCODIGO: TPanel;
+    pnlNOME: TPanel;
+    pnlTELEFONE: TPanel;
+    pnlEMAIL: TPanel;
+    pnlCNPJ: TPanel;
+    pnlATVIVIDADE: TPanel;
+    pnlENDERECO: TPanel;
+    edtFOR_ID: TEdit;
+    edtFOR_NOME: TEdit;
+    edtFOR_TELEFONE: TEdit;
+    edtFOR_EMAIL: TEdit;
+    edtFOR_CNPJ: TEdit;
+    cbbFOR_ATIVO: TComboBox;
+    edtFOR_ENDERECO: TEdit;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure edtFOR_IDChange(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frmfornecedores : TFrmfornecedores;
+
+implementation
+
+uses View.principal;
+
+{$R *.dfm}
+
+
+
+procedure TFrmFornecedores.btnGravarClick(Sender: TObject);
+begin
+  if not (ViewPrincipal.TrBanco.InTransaction) then
+    ViewPrincipal.TrBanco.StartTransaction;
+
+  try
+  with SP_FORNECEDORES do
+  begin
+    ParamByName('FOR_ID').AsInteger := StrToIntDef(edtFOR_ID.Text ,0);
+    ParamByName('FOR_NOME').AsString := edtFOR_NOME.Text;
+    ParamByName('FOR_ENDERECO').AsString := edtFOR_ENDERECO.Text;
+    ParamByName('FOR_TELEFONE').AsString := edtFOR_TELEFONE.Text;
+    ParamByName('FOR_EMAIL').AsString := edtFOR_EMAIL.Text;
+    ParamByName('FOR_CNPJ').AsString := edtFOR_CNPJ.Text;
+
+    if cbbFOR_ATIVO.Text = 'Ativo' then
+      ParamByName('FOR_ATIVO').AsString := 'S'
+    else
+      ParamByName('FOR_ATIVO').AsString := 'N';
+
+  ExecProc;
+  end;
+
+
+Except on E:Exception do
+  begin
+    showmessage('Erro:'+E.message+#13+'Operação Cancelada');
+    ViewPrincipal.TrBanco.Rollback;
+    Abort;
+   end;
+end;
+   showmessage('REGISTRO GRAVADO COM SUCESSO!');
+   ViewPrincipal.TrBanco.Commit;
+end;
+
+
+
+
+procedure TFrmFornecedores.edtFOR_IDChange(Sender: TObject);
+var
+  FornecedorNome : string;
+begin
+  if Trim(edtFOR_ID.Text) = '' then Exit;
+
+  with QryFornecedores do
+  begin
+    Close;
+    SQL.Text := 'SELECT FOR_NOME FROM FORNECEDORES WHERE FOR_ID = :FOR_ID';
+    Params.ParamByName('FOR_ID').AsInteger := StrToIntDef(edtFOR_ID.Text, 0);
+    Open;
+
+    if not IsEmpty then
+    FornecedorNome := FieldByName('FOR_NOME').AsString
+    else
+      FornecedorNome := '';
+
+   Close;
+  end;
+
+ edtFOR_NOME.text := FornecedorNome;
+end;
+
+procedure TFrmFornecedores.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_ESCAPE then
+    Self.Close;
+end;
+
+procedure TFrmFornecedores.btnCancelarClick(Sender: TObject);
+begin
+  Close
+end;
+
+
+end.

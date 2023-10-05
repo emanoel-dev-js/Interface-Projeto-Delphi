@@ -1,0 +1,49 @@
+unit UniLocCaixa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrmLocCaixa = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarcliente: TDBGrid;
+    QryLocCaixa: TIBQuery;
+    DataSource1: TDataSource;
+    procedure edt1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocCaixa: TFrmLocCaixa;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmLocCaixa.edt1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  begin
+    QryLocCaixa.Close;
+    case RadioGroup1.ItemIndex of
+      0: QryLocCaixa.SQL.Text := 'SELECT * FROM CAIXA WHERE UPPER(CHAVE_TRANSACAO) LIKE UPPER(''%' + edt1.Text + '%'')';
+      1: QryLocCaixa.SQL.Text := 'SELECT * FROM CAIXA WHERE CHAVE_TRANSACAO = ' + edt1.Text;
+    end;
+
+    QryLocCaixa.Open;
+    Key := 0;
+  end;
+end;
+
+end.

@@ -1,0 +1,101 @@
+object FrmItensVenda: TFrmItensVenda
+  Left = 0
+  Top = 0
+  Caption = 'Form4'
+  ClientHeight = 235
+  ClientWidth = 676
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 676
+    Height = 49
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'ITENS VENDAS'
+    Color = clBackground
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clLime
+    Font.Height = -37
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitWidth = 673
+  end
+  object pnlRodaPe: TPanel
+    Left = 0
+    Top = 168
+    Width = 676
+    Height = 67
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = clDefault
+    ParentBackground = False
+    TabOrder = 1
+    ExplicitTop = 163
+    ExplicitWidth = 673
+    object btnCancelar: TButton
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 127
+      Height = 47
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alLeft
+      Caption = 'CANCELAR!'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object btnGravar: TButton
+      AlignWithMargins = True
+      Left = 536
+      Top = 10
+      Width = 137
+      Height = 47
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alRight
+      Caption = '&GRAVAR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      ExplicitLeft = 533
+    end
+  end
+  object pnlConteudo: TPanel
+    Left = 0
+    Top = 49
+    Width = 676
+    Height = 119
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 2
+    ExplicitTop = 46
+    ExplicitWidth = 673
+    ExplicitHeight = 114
+  end
+end

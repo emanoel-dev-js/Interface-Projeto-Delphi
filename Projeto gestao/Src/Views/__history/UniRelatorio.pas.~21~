@@ -1,0 +1,138 @@
+unit UniRelatorio;
+
+interface
+
+uses
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  DB,
+  IBCustomDataSet,
+  IBQuery,
+  ExtCtrls,
+  ComCtrls,
+  Buttons,
+  StdCtrls;
+
+type
+  TFrmRelatorio = class(TForm)
+    TopoTipos: TPanel;
+    QryCaixa: TIBQuery;
+    GroupBox1: TGroupBox;
+    BarraBotoes: TPanel;
+    btnCANCELAR: TSpeedButton;
+    btnImprimir: TSpeedButton;
+    QryCaixaRel: TIBQuery;
+    PainelCliente: TPanel;
+    GroupBox2: TGroupBox;
+    lblDataInicio: TLabel;
+    lblDataFinal: TLabel;
+    DateTimePicker1: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
+    RadioGroup1: TRadioGroup;
+    PainelCaixa: TPanel;
+    GroupBox3: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    DateTimePicker3: TDateTimePicker;
+    DateTimePicker4: TDateTimePicker;
+    PainelFornecedor: TPanel;
+    GroupBox4: TGroupBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    DateTimePicker5: TDateTimePicker;
+    DateTimePicker6: TDateTimePicker;
+    PainelProduto: TPanel;
+    GroupBox5: TGroupBox;
+    Label5: TLabel;
+    Label6: TLabel;
+    DateTimePicker7: TDateTimePicker;
+    DateTimePicker8: TDateTimePicker;
+    PainelVenda: TPanel;
+    GroupBox6: TGroupBox;
+    Label7: TLabel;
+    Label8: TLabel;
+    DateTimePicker9: TDateTimePicker;
+    DateTimePicker10: TDateTimePicker;
+    cbbTiposRelatorios: TComboBox;
+    procedure btnImprimirClick(Sender: TObject);
+    procedure btnCANCELARClick(Sender: TObject);
+    procedure FiltrarDados;
+    procedure cbbTiposRelatoriosChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmRelatorio: TFrmRelatorio;
+
+implementation
+
+Uses
+  UniRelCaixa;
+
+{$R *.dfm}
+
+procedure TFrmRelatorio.btnCANCELARClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrmRelatorio.btnImprimirClick(Sender: TObject);
+begin
+    Application.CreateForm(TFRelCaixa, FRelCaixa);
+    try
+      //FRelCaixa.QryMovCaixa.Open;
+      FiltrarDados;
+      FRelCaixa.QuickRep1.PreviewModal
+    finally
+      FreeAndNil(FRelCaixa)
+    end;
+  end;
+
+
+procedure TFrmRelatorio.FiltrarDados;
+var
+  sTipoTransacao: string;
+begin
+  case RadioGroup1.ItemIndex of
+    0: sTipoTransacao := 'Entrada';
+    1: sTipoTransacao := 'Saida';
+  else
+    raise Exception.Create('Tipo de transação não selecionado.');
+  end;
+
+  with FRelCaixa.QryMovCaixa do
+  begin
+    FRelCaixa.QryMovCaixa.Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM CAIXA');
+    SQL.Add('WHERE CIX_TIPO = :pTipo AND DATA_TRANSACAO BETWEEN :pDataInicio AND :pDataFinal');
+
+    ParamByName('pTipo').AsString := sTipoTransacao;
+    ParamByName('pDataInicio').AsDate := DateTimePicker1.Date;
+    ParamByName('pDataFinal').AsDate := DateTimePicker2.Date;
+
+
+    FRelCaixa.QryMovCaixa.Open;
+  end;
+end;
+
+procedure TFrmRelatorio.cbbTiposRelatoriosChange(Sender: TObject);
+begin
+  PainelCliente.Visible := cbbTiposRelatorios.ItemIndex = 0;
+  PainelCaixa.Visible := cbbTiposRelatorios.ItemIndex = 1;
+  PainelFornecedor.Visible := cbbTiposRelatorios.ItemIndex = 2;
+  PainelProduto.Visible := cbbTiposRelatorios.ItemIndex = 3;
+  PainelVenda.Visible := cbbTiposRelatorios.ItemIndex = 4;
+end;
+
+end.

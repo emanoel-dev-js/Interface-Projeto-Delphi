@@ -1,0 +1,80 @@
+unit UniLocalizarCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, ExtCtrls, Grids, DBGrids;
+
+type
+  TForm5 = class(TForm)
+    GridLocalizarcliente: TDBGrid;
+    pnlConteudo: TPanel;
+    RadioGroup1: TRadioGroup;
+    edt1: TEdit;
+    QryLocCliente: TIBQuery;
+    DataSourceLocCliente: TDataSource;  // Adicione o botão aqui
+    procedure GridLocalizarclienteKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edt1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure GridLocalizarclienteDblClick(Sender: TObject);
+  private
+
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+uses
+  UniCliente;
+{$R *.dfm}
+
+procedure TForm5.edt1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  begin
+    QryLocCliente.Close;
+    case RadioGroup1.ItemIndex of
+      0: QryLocCliente.SQL.Text := 'SELECT * FROM CLIENTES WHERE UPPER(CLIE_NOME) LIKE UPPER(''%' + edt1.Text + '%'')'; // Buscar por nome
+      1: QryLocCliente.SQL.Text := 'SELECT * FROM CLIENTES WHERE CHAVE = ' + edt1.Text; // Buscar por ID
+    end;
+
+    QryLocCliente.Open;
+    Key := 0;
+  end;
+end;
+
+procedure TForm5.GridLocalizarclienteDblClick(Sender: TObject);
+begin
+  if not QryLocCliente.IsEmpty then
+  begin
+  //  TFRMCliente.
+end;
+end;
+procedure TForm5.GridLocalizarclienteKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  Form5.Close;
+  FRMCliente.CHAVE.Text := GridLocalizarcliente.Fields[0].Value;
+  FRMCliente.CLIE_NOME.Text := GridLocalizarcliente.Fields[1].Value;
+  FRMCliente.CLIE_SEXO.Text := GridLocalizarcliente.Fields[2].Value;
+  FRMCliente.CLIE_TIPO_PESSOA.Text := GridLocalizarcliente.Fields[3].Value;
+
+  if Key = VK_RETURN then GridLocalizarclienteDblClick(GridLocalizarcliente);
+end;
+
+procedure TForm5.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_ESCAPE then
+    Self.Close;
+end;
+
+end.
+

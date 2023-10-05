@@ -1,0 +1,30 @@
+unit UniLocCaixa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls;
+
+type
+  TFrmLocCaixa = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarcliente: TDBGrid;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocCaixa: TFrmLocCaixa;
+
+implementation
+
+{$R *.dfm}
+
+end.

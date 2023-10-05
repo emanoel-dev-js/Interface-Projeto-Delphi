@@ -1,0 +1,30 @@
+unit UniLocProdutos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids, DBGrids, ExtCtrls;
+
+type
+  TFrmLocProdutos = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarcliente: TDBGrid;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocProdutos: TFrmLocProdutos;
+
+implementation
+
+{$R *.dfm}
+
+end.

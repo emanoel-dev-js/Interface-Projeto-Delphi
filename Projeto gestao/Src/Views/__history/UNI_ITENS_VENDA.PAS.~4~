@@ -1,0 +1,35 @@
+unit UNI_ITENS_VENDA;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls;
+
+type
+  TFrmItensVenda = class(TForm)
+    pnlTopo: TPanel;
+    pnlRodaPe: TPanel;
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    pnlConteudo: TPanel;
+    procedure btnCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmItensVenda: TFrmItensVenda;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmItensVenda.btnCancelarClick(Sender: TObject);
+begin
+Close;
+end;
+
+end.

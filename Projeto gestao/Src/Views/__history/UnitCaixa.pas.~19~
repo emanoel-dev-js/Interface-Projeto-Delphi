@@ -1,0 +1,112 @@
+unit UnitCaixa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, IBStoredProc, DB, IBCustomDataSet, IBQuery,
+  ComCtrls;
+
+type
+  TFrmCaixa = class(TForm)
+    PnlTopo: TPanel;
+    pnlConteudo: TPanel;
+    pnl1: TPanel;
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    lblID_TRAN: TLabel;
+    lblDATA_TRAN: TLabel;
+    lblDESCRICAO: TLabel;
+    lblVALOR: TLabel;
+    lblTIPO: TLabel;
+    QryCAIXA: TIBQuery;
+    SP_CAIXA: TIBStoredProc;
+    pnlCODIGO: TPanel;
+    pnlDATA: TPanel;
+    pnlDESCRICAO: TPanel;
+    pnlVALOR: TPanel;
+    pnlTIPO: TPanel;
+    CX_ID_TRAN: TEdit;
+    DateTimePicker1: TDateTimePicker;
+    CX_DESCRICAO: TEdit;
+    CX_VALOR: TEdit;
+    CBB_TIPO: TComboBox;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCaixa: TFrmCaixa;
+
+implementation
+
+uses
+View.principal;
+
+{$R *.dfm}
+
+
+procedure TFrmCaixa.btnGravarClick(Sender: TObject);
+begin
+  if not (ViewPrincipal.TrBanco.InTransaction) then
+    ViewPrincipal.TrBanco.StartTransaction;
+
+  try
+    with SP_CAIXA do
+    begin
+      ParamByName('CHAVE_TRANSACAO').AsInteger := StrToIntDef(CX_ID_TRAN.Text, 0);
+      ParamByName('DATA_TRANSACAO').AsDate := StrToDate(CX_DATA_TRAN.Text);
+      ParamByName('CIX_DESCRICAO').AsString := CX_DESCRICAO.Text;
+      ParamByName('CIX_VALOR').AsInteger := StrToInt(CX_VALOR.Text);
+
+      if CBB_TIPO.Text = 'Entrada' then
+        ParamByName('CIX_TIPO').AsString := 'Entrada'
+      else
+        ParamByName('CIX_TIPO').AsString := 'Saida';
+
+      ExecProc;
+    end;
+
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro:' + E.Message + #13 + 'Operação Cancelada');
+      ViewPrincipal.TrBanco.Rollback;
+      Abort;
+    end;
+  end;
+
+  {QryCAIXA.Close;
+  QryCAIXA.SQL.Clear;
+  QryCAIXA.SQL.Add('INSERT INTO CAIXA (CHAVE_TRANSACAO, DATA_TRANSACAO, CIX_DESCRICAO, CIX_VALOR, CIX_TIPO)');
+  QryCAIXA.SQL.Add('VALUES (:CODIGO, :DATA_TRANSACAO, :CIX_DESCRICAO, :CIX_VALOR, :CIX_TIPO);');
+  QryCAIXA.ParamByName('CODIGO').AsInteger := 4;
+  QryCAIXA.ParamByName('DATA_TRANSACAO').AsDate := StrToDate('01/01/2023');
+  QryCAIXA.ParamByName('CIX_DESCRICAO').AsString := ('CAIXA PRINCIPAL');
+  QryCAIXA.ParamByName('CIX_VALOR').AsInteger := 500;
+  QryCAIXA.ParamByName('CIX_TIPO').AsString := 'DEBITO';
+
+  QryCAIXA.Open; }
+
+  ShowMessage('REGISTRO GRAVADO COM SUCESSO!');
+  ViewPrincipal.TrBanco.Commit;
+end;
+
+procedure TFrmCaixa.btnCancelarClick(Sender: TObject);
+begin
+  Close
+end;
+
+procedure TFrmCaixa.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_ESCAPE then
+    Self.Close;
+end;
+
+end.

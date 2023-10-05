@@ -1,0 +1,68 @@
+unit UniFuncionarios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, ExtCtrls, UniLocFuncionarios, IBStoredProc, DB,
+  IBCustomDataSet, IBQuery;
+
+type
+  TFrmFuncionarios = class(TForm)
+    pnlTopo: TPanel;
+    Panel1: TPanel;
+    SpeedButton2: TSpeedButton;
+    btnGRAVAR: TSpeedButton;
+    pnlConteudo: TPanel;
+    btnConfiguracoesBtnLocalizar: TSpeedButton;
+    lblCODIGO: TLabel;
+    lblNOME: TLabel;
+    lblGENERO: TLabel;
+    lblTIPO: TLabel;
+    pnlNOME: TPanel;
+    edtCLIE_NOME: TEdit;
+    pnlGENERO: TPanel;
+    cbbCLIE_SEXO: TComboBox;
+    pnlTIPO: TPanel;
+    pnl1: TPanel;
+    edt1: TEdit;
+    edtIDADE: TEdit;
+    pnl2: TPanel;
+    edt2: TEdit;
+    lblNumero: TLabel;
+    pnl3: TPanel;
+    edt3: TEdit;
+    lblEmail: TLabel;
+    QryFuncionarios: TIBQuery;
+    SP_FUNCIONARIO: TIBStoredProc;
+    procedure btnConfiguracoesBtnLocalizarClick(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmFuncionarios: TFrmFuncionarios;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmFuncionarios.btnConfiguracoesBtnLocalizarClick(Sender: TObject);
+begin
+  Application.CreateForm(TLocFuncionarios, LocFuncionarios);
+  try
+    LocFuncionarios.ShowModal;
+  finally
+    FreeAndNil(LocFuncionarios);
+  end;
+end;
+
+procedure TFrmFuncionarios.SpeedButton2Click(Sender: TObject);
+begin
+Close;
+end;
+
+end.

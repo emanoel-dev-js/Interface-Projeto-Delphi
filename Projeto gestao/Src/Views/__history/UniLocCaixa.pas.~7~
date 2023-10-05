@@ -1,0 +1,63 @@
+unit UniLocCaixa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrmLocCaixa = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarCaixa: TDBGrid;
+    QryLocCaixa: TIBQuery;
+    DataSource1: TDataSource;
+    procedure edt1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dbgrdGridLocalizarCaixaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocCaixa: TFrmLocCaixa;
+
+implementation
+uses
+  UnitCaixa;
+{$R *.dfm}
+
+procedure TFrmLocCaixa.dbgrdGridLocalizarCaixaKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  FrmCaixa.CX_ID_TRAN.Text      := dbgrdGridLocalizarCaixa.DataSource.DataSet.FieldByName('CHAVE_TRANSACAO').AsString;
+  FrmCaixa.DateTimePicker1.Date := dbgrdGridLocalizarCaixa.DataSource.DataSet.FieldByName('DATA_TRANSACAO').AsDateTime;
+  FrmCaixa.CBB_TIPO.Text        := dbgrdGridLocalizarCaixa.DataSource.DataSet.FieldByName('CIX_TIPO').AsString;
+  FrmCaixa.CX_DESCRICAO.Text    := dbgrdGridLocalizarCaixa.DataSource.DataSet.FieldByName('CIX_DESCRICAO').AsString;
+  FrmCaixa.CX_VALOR.Value       := dbgrdGridLocalizarCaixa.DataSource.DataSet.FieldByName('CIX_VALOR').AsFloat;
+  Close;
+end;
+
+procedure TFrmLocCaixa.edt1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  begin
+    QryLocCaixa.Close;
+    case RadioGroup1.ItemIndex of
+      0: QryLocCaixa.SQL.Text := 'SELECT * FROM CAIXA WHERE UPPER(CHAVE_TRANSACAO) LIKE UPPER(''%' + edt1.Text + '%'')';
+      1: QryLocCaixa.SQL.Text := 'SELECT * FROM CAIXA WHERE CHAVE_TRANSACAO = ' + edt1.Text;
+    end;
+
+    QryLocCaixa.Open;
+    Key := 0;
+  end;
+end;
+
+end.

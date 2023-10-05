@@ -1,0 +1,220 @@
+object FrmItensVenda: TFrmItensVenda
+  Left = 0
+  Top = 0
+  Caption = 'Form4'
+  ClientHeight = 235
+  ClientWidth = 676
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 676
+    Height = 49
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'ITENS VENDAS'
+    Color = 5395026
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -37
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+  end
+  object pnlRodaPe: TPanel
+    Left = 0
+    Top = 168
+    Width = 676
+    Height = 67
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = 5395026
+    ParentBackground = False
+    TabOrder = 1
+    object btnCancelar: TButton
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 127
+      Height = 47
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alLeft
+      Caption = 'CANCELAR!'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCancelarClick
+    end
+    object btnGravar: TButton
+      AlignWithMargins = True
+      Left = 536
+      Top = 10
+      Width = 137
+      Height = 47
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alRight
+      Caption = '&GRAVAR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnGravarClick
+    end
+  end
+  object pnlConteudo: TPanel
+    Left = 0
+    Top = 49
+    Width = 676
+    Height = 119
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 2
+    object lbItem_ID: TLabel
+      Left = 24
+      Top = 16
+      Width = 17
+      Height = 21
+      Caption = 'ID'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblVenda_Id: TLabel
+      Left = 160
+      Top = 16
+      Width = 71
+      Height = 21
+      Caption = 'Id Venda:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblProdutoID: TLabel
+      Left = 432
+      Top = 16
+      Width = 87
+      Height = 21
+      Caption = 'ID Produto:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblQUantidade: TLabel
+      Left = 228
+      Top = 76
+      Width = 94
+      Height = 21
+      Caption = 'Quantidade '
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblValor: TLabel
+      Left = 24
+      Top = 80
+      Width = 40
+      Height = 21
+      Caption = 'Valor'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object edtID: TEdit
+      Left = 47
+      Top = 19
+      Width = 50
+      Height = 21
+      Color = clBtnShadow
+      TabOrder = 0
+    end
+    object edtVenda: TEdit
+      Left = 264
+      Top = 19
+      Width = 121
+      Height = 21
+      Color = clBtnShadow
+      TabOrder = 1
+    end
+    object edtNomedoproduto: TEdit
+      Left = 536
+      Top = 19
+      Width = 121
+      Height = 21
+      Color = clBtnShadow
+      TabOrder = 2
+    end
+    object edtValor: TEdit
+      Left = 85
+      Top = 80
+      Width = 121
+      Height = 21
+      Color = clBtnShadow
+      TabOrder = 3
+    end
+    object edtQuantidade: TEdit
+      Left = 328
+      Top = 80
+      Width = 121
+      Height = 21
+      Color = clBtnShadow
+      TabOrder = 4
+    end
+  end
+  object Qry_ItensVendas: TIBQuery
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    Left = 192
+    Top = 184
+  end
+  object SP_INSERIR_ITENS_VENDA: TIBStoredProc
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    StoredProcName = 'SP_INSERIR_ITEM_VENDA'
+    Left = 312
+    Top = 184
+  end
+  object QUERY_PRODUTOS: TIBQuery
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    Left = 440
+    Top = 184
+  end
+end

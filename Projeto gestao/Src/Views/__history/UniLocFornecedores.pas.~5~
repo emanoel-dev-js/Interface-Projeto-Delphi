@@ -1,0 +1,63 @@
+unit UniLocFornecedores;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids, DBGrids, ExtCtrls, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrmLocFornecedores = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarcliente: TDBGrid;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+    QryLocFornecedores: TIBQuery;
+    DataSource1: TDataSource;
+    procedure edt1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dbgrdGridLocalizarclienteKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocFornecedores: TFrmLocFornecedores;
+
+implementation
+uses
+  UniFornecedores;
+{$R *.dfm}
+
+procedure TFrmLocFornecedores.dbgrdGridLocalizarclienteKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  Frmfornecedores
+  Frmfornecedores
+  Frmfornecedores
+  Frmfornecedores
+  Frmfornecedores
+  Frmfornecedores
+end;
+
+procedure TFrmLocFornecedores.edt1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  begin
+    QryLocFornecedores.Close;
+    case RadioGroup1.ItemIndex of
+      0: QryLocFornecedores.SQL.Text := 'SELECT * FROM FORNECEDORES WHERE UPPER(FOR_NOME) LIKE UPPER(''%' + edt1.Text + '%'')';
+      1: QryLocFornecedores.SQL.Text := 'SELECT * FROM FORNECEDORES WHERE FOR_ID = ' + edt1.Text;
+    end;
+
+    QryLocFornecedores.Open;
+    Key := 0;
+  end;
+end;
+
+end.

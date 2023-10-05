@@ -1,0 +1,394 @@
+object FrmFornecedores: TFrmFornecedores
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'FrmFornecedores'
+  ClientHeight = 366
+  ClientWidth = 702
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnKeyDown = FormKeyDown
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlRodaPe: TPanel
+    Left = 0
+    Top = 297
+    Width = 702
+    Height = 69
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = 5395026
+    ParentBackground = False
+    TabOrder = 0
+    ExplicitTop = 162
+    ExplicitWidth = 688
+    object btnCancelar: TButton
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 129
+      Height = 49
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alLeft
+      Caption = '&CANCELAR!'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -21
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCancelarClick
+    end
+    object btnGravar: TButton
+      AlignWithMargins = True
+      Left = 570
+      Top = 10
+      Width = 129
+      Height = 49
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alRight
+      Caption = '&Gravar'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -24
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnGravarClick
+      ExplicitLeft = 556
+    end
+  end
+  object pnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 702
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'FORNECEDORES'
+    Color = 5395026
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 1
+    ExplicitWidth = 688
+  end
+  object pnlconteudo: TPanel
+    Left = 0
+    Top = 41
+    Width = 702
+    Height = 256
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 2
+    ExplicitLeft = 8
+    ExplicitTop = 57
+    ExplicitWidth = 754
+    ExplicitHeight = 342
+    object lbl1: TLabel
+      Left = 27
+      Top = 3
+      Width = 16
+      Height = 17
+      Caption = 'Id:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl2: TLabel
+      Left = 158
+      Top = 3
+      Width = 41
+      Height = 17
+      Caption = 'Nome:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl3: TLabel
+      Left = 243
+      Top = 161
+      Width = 56
+      Height = 17
+      Caption = 'Endere'#231'o'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl4: TLabel
+      Left = 22
+      Top = 161
+      Width = 57
+      Height = 17
+      Caption = 'Telefone:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl5: TLabel
+      Left = 243
+      Top = 84
+      Width = 38
+      Height = 17
+      Caption = 'Email:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl6: TLabel
+      Left = 22
+      Top = 84
+      Width = 35
+      Height = 17
+      Caption = 'CNPJ:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl7: TLabel
+      Left = 570
+      Top = 14
+      Width = 104
+      Height = 17
+      Caption = 'Ativo ou Inativo:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object pnlCODIGO: TPanel
+      Left = 22
+      Top = 24
+      Width = 70
+      Height = 38
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 0
+      object edtFOR_ID: TEdit
+        Left = 3
+        Top = 3
+        Width = 64
+        Height = 32
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        OnChange = edtFOR_IDChange
+        ExplicitLeft = 46
+        ExplicitTop = 6
+        ExplicitWidth = 35
+        ExplicitHeight = 21
+      end
+    end
+    object pnlNOME: TPanel
+      Left = 111
+      Top = 26
+      Width = 402
+      Height = 36
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 1
+      object edtFOR_NOME: TEdit
+        Left = 3
+        Top = 3
+        Width = 396
+        Height = 30
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        ExplicitLeft = 0
+        ExplicitWidth = 179
+        ExplicitHeight = 35
+      end
+    end
+    object pnlTELEFONE: TPanel
+      Left = 22
+      Top = 181
+      Width = 185
+      Height = 41
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 2
+      object edtFOR_TELEFONE: TEdit
+        Left = 3
+        Top = 3
+        Width = 179
+        Height = 35
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        ExplicitTop = 0
+      end
+    end
+    object pnlEMAIL: TPanel
+      Left = 232
+      Top = 181
+      Width = 417
+      Height = 41
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 3
+      object edtFOR_EMAIL: TEdit
+        Left = 3
+        Top = 3
+        Width = 411
+        Height = 35
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        ExplicitLeft = 1
+        ExplicitTop = -1
+        ExplicitWidth = 179
+      end
+    end
+    object pnlCNPJ: TPanel
+      Left = 22
+      Top = 104
+      Width = 195
+      Height = 41
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 4
+      object edtFOR_CNPJ: TEdit
+        Left = 3
+        Top = 3
+        Width = 189
+        Height = 35
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        ExplicitLeft = 64
+        ExplicitTop = 20
+        ExplicitWidth = 121
+        ExplicitHeight = 21
+      end
+    end
+    object pnlATVIVIDADE: TPanel
+      Left = 537
+      Top = 34
+      Width = 152
+      Height = 28
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 5
+      object cbbFOR_ATIVO: TComboBox
+        Left = 3
+        Top = 3
+        Width = 146
+        Height = 21
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        Items.Strings = (
+          'Ativo'
+          'Inativo')
+        ExplicitWidth = 179
+      end
+    end
+    object pnlENDERECO: TPanel
+      Left = 232
+      Top = 104
+      Width = 417
+      Height = 41
+      BevelOuter = bvNone
+      Color = 5395026
+      Padding.Left = 3
+      Padding.Top = 3
+      Padding.Right = 3
+      Padding.Bottom = 3
+      ParentBackground = False
+      TabOrder = 6
+      object edtFOR_ENDERECO: TEdit
+        Left = 3
+        Top = 3
+        Width = 411
+        Height = 35
+        Align = alClient
+        Color = clScrollBar
+        TabOrder = 0
+        ExplicitTop = -12
+        ExplicitWidth = 179
+      end
+    end
+  end
+  object SP_FORNECEDORES: TIBStoredProc
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    StoredProcName = 'SP_FORNECEDORES'
+    Left = 408
+    Top = 312
+  end
+  object QryFornecedores: TIBQuery
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    Left = 264
+    Top = 312
+  end
+end

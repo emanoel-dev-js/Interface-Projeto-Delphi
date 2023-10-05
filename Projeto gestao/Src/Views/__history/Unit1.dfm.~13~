@@ -1,0 +1,211 @@
+object FRMCliente: TFRMCliente
+  Left = 0
+  Top = 0
+  Caption = 'FRMCliente'
+  ClientHeight = 218
+  ClientWidth = 696
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 150
+    Width = 696
+    Height = 68
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = clBlack
+    ParentBackground = False
+    TabOrder = 0
+    object SpeedButton2: TSpeedButton
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 140
+      Height = 48
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alLeft
+      Anchors = [akLeft, akBottom]
+      Caption = '&CANCELAR !'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = SpeedButton2Click
+      ExplicitTop = 40
+      ExplicitHeight = 18
+    end
+    object btnGRAVAR: TSpeedButton
+      AlignWithMargins = True
+      Left = 520
+      Top = 10
+      Width = 173
+      Height = 48
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alRight
+      Caption = '&GRAVAR '#172
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btnGRAVARClick
+      ExplicitTop = 32
+      ExplicitHeight = 26
+    end
+  end
+  object pnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 696
+    Height = 41
+    Align = alTop
+    Caption = 'INFORMA'#199#213'ES DO CLIENTE'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 1
+  end
+  object pnlConteudo: TPanel
+    Left = 0
+    Top = 41
+    Width = 696
+    Height = 109
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 2
+    object CLIE_NOME: TEdit
+      Left = 113
+      Top = 30
+      Width = 573
+      Height = 21
+      Color = clScrollBar
+      TabOrder = 1
+    end
+    object CLIE_TIPO_PESSOA: TComboBox
+      Left = 150
+      Top = 80
+      Width = 137
+      Height = 21
+      ItemIndex = 0
+      TabOrder = 3
+      Text = 'FISICA'
+      Items.Strings = (
+        'FISICA'
+        'JURIDICA')
+    end
+    object CLIE_SEXO: TComboBox
+      Left = 11
+      Top = 80
+      Width = 133
+      Height = 21
+      ItemIndex = 0
+      TabOrder = 2
+      Text = 'MULHER'
+      Items.Strings = (
+        'MULHER'
+        'HOMEM')
+    end
+    object StaticText1: TStaticText
+      Left = 113
+      Top = 11
+      Width = 37
+      Height = 17
+      Caption = 'NOME:'
+      TabOrder = 4
+    end
+    object StaticText2: TStaticText
+      Left = 150
+      Top = 61
+      Width = 32
+      Height = 17
+      Caption = 'TIPO:'
+      TabOrder = 5
+    end
+    object StaticText3: TStaticText
+      Left = 11
+      Top = 61
+      Width = 49
+      Height = 17
+      Caption = 'GENERO:'
+      TabOrder = 6
+    end
+    object CHAVE: TEdit
+      Left = 11
+      Top = 30
+      Width = 89
+      Height = 21
+      Color = clScrollBar
+      NumbersOnly = True
+      TabOrder = 0
+    end
+    object StaticText4: TStaticText
+      Left = 11
+      Top = 10
+      Width = 49
+      Height = 17
+      Caption = 'CODIGO:'
+      TabOrder = 7
+    end
+  end
+  object QryCliente: TIBQuery
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    Left = 368
+    Top = 112
+  end
+  object SP_CLIENTE: TIBStoredProc
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    StoredProcName = 'SP_CLIENTE'
+    Left = 456
+    Top = 112
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptOutput
+      end
+      item
+        DataType = ftInteger
+        Name = 'CHAVE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'CLIE_NOME'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'CLIE_TIPO_PESSOA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'CLIE_SEXO'
+        ParamType = ptInput
+      end>
+  end
+end

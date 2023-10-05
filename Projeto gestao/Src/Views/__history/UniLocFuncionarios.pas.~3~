@@ -1,0 +1,32 @@
+unit UniLocFuncionarios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Grids, DBGrids, DB, IBCustomDataSet, IBQuery;
+
+type
+  TLocFuncionarios = class(TForm)
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarcliente: TDBGrid;
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+    QryFuncionarios: TIBQuery;
+    DataSource1: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LocFuncionarios: TLocFuncionarios;
+
+implementation
+
+{$R *.dfm}
+
+end.

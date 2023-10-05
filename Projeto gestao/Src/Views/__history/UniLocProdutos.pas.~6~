@@ -1,0 +1,64 @@
+unit UniLocProdutos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids, DBGrids, ExtCtrls, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrmLocProdutos = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarProdutos: TDBGrid;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+    QryLocProdutos: TIBQuery;
+    DataSource1: TDataSource;
+    procedure edt1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dbgrdGridLocalizarProdutosKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocProdutos: TFrmLocProdutos;
+
+implementation
+uses
+  UniProdutos;
+{$R *.dfm}
+
+procedure TFrmLocProdutos.dbgrdGridLocalizarProdutosKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  FrmProdutos.edtPRO_CODIGO.Text     := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+  FrmProdutos.edtPRO_DESCRICAO.Text  := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+  FrmProdutos.cbbUNIDADE.Text        := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+  FrmProdutos.edtPRO_BARRAS.Text     := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+  FrmProdutos.dblkcbbFORNECEDOR.Text := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+  FrmProdutos.edt1.Text              := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+  FrmProdutos.CurredtValorUni.Text   := dbgrdGridLocalizarProdutos.DataSource.DataSet.FieldByName('').AsString;
+end;
+
+procedure TFrmLocProdutos.edt1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  begin
+    QryLocProdutos.Close;
+    case RadioGroup1.ItemIndex of
+      0: QryLocProdutos.SQL.Text := 'SELECT * FROM PRODUTOS WHERE UPPER(PRO_DESCRICAO) LIKE UPPER(''%' + edt1.Text + '%'')';
+      1: QryLocProdutos.SQL.Text := 'SELECT * FROM PRODUTOS WHERE PRO_ID = ' + edt1.Text;
+    end;
+
+    QryLocProdutos.Open;
+    Key := 0;
+  end;
+end;
+
+end.

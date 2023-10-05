@@ -1,0 +1,94 @@
+unit UniLocalizarCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, ExtCtrls, Grids, DBGrids;
+
+type
+  TForm5 = class(TForm)
+    GridLocalizarcliente: TDBGrid;
+    pnlConteudo: TPanel;
+    RadioGroup1: TRadioGroup;
+    edt1: TEdit;
+    QryLocCliente: TIBQuery;
+    DataSourceLocCliente: TDataSource;
+    procedure GridLocalizarclienteKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edt1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure GridLocalizarclienteDblClick(Sender: TObject);
+    procedure RadioGroup1Click(Sender: TObject);
+    procedure edt1Change(Sender: TObject);
+  private
+
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+uses
+  UniCliente;
+{$R *.dfm}
+
+
+
+procedure TForm5.edt1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  begin
+    QryLocCliente.Close;
+    case RadioGroup1.ItemIndex of
+      0: QryLocCliente.SQL.Text := 'SELECT * FROM CLIENTES WHERE UPPER(CLIE_NOME) LIKE UPPER(''%' + edt1.Text + '%'')';
+      1: QryLocCliente.SQL.Text := 'SELECT * FROM CLIENTES WHERE CHAVE = ' + edt1.Text;
+    end;
+
+    QryLocCliente.Open;
+    Key := 0;
+  end;
+end;
+
+procedure TForm5.GridLocalizarclienteKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+
+  FRMCliente.CHAVE.Text            := GridLocalizarcliente.DataSource.DataSet.FieldByName('CHAVE').AsString;
+  FRMCliente.CLIE_NOME.Text        := GridLocalizarcliente.DataSource.DataSet.FieldByName('CLIE_NOME').AsString;
+  FRMCliente.CLIE_SEXO.Text        := GridLocalizarcliente.DataSource.DataSet.FieldByName('CLIE_SEXO').AsString;
+  FRMCliente.CLIE_TIPO_PESSOA.Text := GridLocalizarcliente.DataSource.DataSet.FieldByName('CLIE_TIPO_PESSOA').AsString;
+
+  if Key = VK_RETURN then GridLocalizarclienteDblClick(GridLocalizarcliente);
+end;
+
+procedure TForm5.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then Close;
+end;
+
+procedure TForm5.RadioGroup1Click(Sender: TObject);
+begin
+edt1.Clear;
+edt1.SetFocus;
+end;
+
+procedure TForm5.GridLocalizarclienteDblClick(Sender: TObject);
+begin
+//
+end;
+
+procedure TForm5.edt1Change(Sender: TObject);
+begin
+//
+end;
+
+
+end.
+
+

@@ -1,0 +1,30 @@
+unit UniLocVendas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids, DBGrids, ExtCtrls;
+
+type
+  TFrmLocVenda = class(TForm)
+    pnlRadio: TPanel;
+    RadioGroup1: TRadioGroup;
+    pnlConteudo: TPanel;
+    dbgrdGridLocalizarcliente: TDBGrid;
+    pnlEdit: TPanel;
+    edt1: TEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmLocVenda: TFrmLocVenda;
+
+implementation
+
+{$R *.dfm}
+
+end.

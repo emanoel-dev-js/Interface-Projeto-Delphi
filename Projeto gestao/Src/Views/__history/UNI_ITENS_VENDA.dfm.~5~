@@ -1,0 +1,108 @@
+object FrmItensVenda: TFrmItensVenda
+  Left = 0
+  Top = 0
+  Caption = 'Form4'
+  ClientHeight = 235
+  ClientWidth = 676
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 676
+    Height = 49
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'ITENS VENDAS'
+    Color = 5395026
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -37
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+  end
+  object pnlRodaPe: TPanel
+    Left = 0
+    Top = 168
+    Width = 676
+    Height = 67
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = 5395026
+    ParentBackground = False
+    TabOrder = 1
+    object btnCancelar: TButton
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 127
+      Height = 47
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alLeft
+      Caption = 'CANCELAR!'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCancelarClick
+    end
+    object btnGravar: TButton
+      AlignWithMargins = True
+      Left = 536
+      Top = 10
+      Width = 137
+      Height = 47
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alRight
+      Caption = '&GRAVAR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+  end
+  object pnlConteudo: TPanel
+    Left = 0
+    Top = 49
+    Width = 676
+    Height = 119
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 2
+  end
+  object Qry_ItensVendas: TIBQuery
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    Left = 192
+    Top = 184
+  end
+  object SP_INSERIR_ITENS_VENDA: TIBStoredProc
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    StoredProcName = 'SP_INSERIR_ITEM_VENDA'
+    Left = 312
+    Top = 184
+  end
+end

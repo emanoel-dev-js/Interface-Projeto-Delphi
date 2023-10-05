@@ -1,0 +1,222 @@
+object FrmCaixa: TFrmCaixa
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'FrmCaixa'
+  ClientHeight = 236
+  ClientWidth = 686
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnKeyDown = FormKeyDown
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 686
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'Caixa'
+    Color = 5395026
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -37
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitWidth = 676
+  end
+  object pnlConteudo: TPanel
+    Left = 0
+    Top = 40
+    Width = 676
+    Height = 178
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 1
+    object lblID_TRAN: TLabel
+      Left = 24
+      Top = 16
+      Width = 21
+      Height = 21
+      Caption = 'ID:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblDATA_TRAN: TLabel
+      Left = 244
+      Top = 19
+      Width = 38
+      Height = 17
+      Caption = 'DATA:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblDESCRICAO: TLabel
+      Left = 24
+      Top = 56
+      Width = 75
+      Height = 17
+      Caption = 'DESCRICAO:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblVALOR: TLabel
+      Left = 24
+      Top = 97
+      Width = 46
+      Height = 17
+      Caption = 'VALOR:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblTIPO: TLabel
+      Left = 248
+      Top = 97
+      Width = 34
+      Height = 17
+      Caption = 'TIPO:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object CX_ID_TRAN: TEdit
+      Left = 76
+      Top = 19
+      Width = 121
+      Height = 21
+      Color = clScrollBar
+      TabOrder = 0
+    end
+    object CX_DATA_TRAN: TEdit
+      Left = 296
+      Top = 19
+      Width = 121
+      Height = 21
+      Color = clScrollBar
+      TabOrder = 1
+    end
+    object CX_DESCRICAO: TEdit
+      Left = 105
+      Top = 56
+      Width = 312
+      Height = 21
+      Color = clScrollBar
+      TabOrder = 2
+    end
+    object CX_VALOR: TEdit
+      Left = 76
+      Top = 96
+      Width = 121
+      Height = 21
+      Color = clScrollBar
+      TabOrder = 3
+    end
+    object CBB_TIPO: TComboBox
+      Left = 288
+      Top = 96
+      Width = 129
+      Height = 21
+      Color = clScrollBar
+      TabOrder = 4
+      Items.Strings = (
+        'ENTRADA'
+        'SAIDA')
+    end
+  end
+  object pnl1: TPanel
+    Left = 0
+    Top = 170
+    Width = 686
+    Height = 66
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = 5395026
+    ParentBackground = False
+    TabOrder = 2
+    ExplicitTop = 160
+    ExplicitWidth = 676
+    object btnCancelar: TButton
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 127
+      Height = 46
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alLeft
+      Caption = 'CANCELAR!'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCancelarClick
+    end
+    object btnGravar: TButton
+      AlignWithMargins = True
+      Left = 546
+      Top = 10
+      Width = 137
+      Height = 46
+      Margins.Left = 10
+      Margins.Top = 10
+      Margins.Bottom = 10
+      Align = alRight
+      Caption = '&GRAVAR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnGravarClick
+      ExplicitLeft = 536
+    end
+  end
+  object QryCAIXA: TIBQuery
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    Left = 520
+    Top = 64
+  end
+  object SP_CAIXA: TIBStoredProc
+    Database = ViewPrincipal.IbBanco
+    Transaction = ViewPrincipal.TrBanco
+    StoredProcName = 'SP_CAIXA'
+    Left = 600
+    Top = 72
+  end
+end

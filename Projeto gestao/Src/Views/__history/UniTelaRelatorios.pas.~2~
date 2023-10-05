@@ -1,0 +1,26 @@
+unit UniTelaRelatorios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, QuickRpt, qrpBaseCtrls;
+
+type
+  TFrmResultadoRel = class(TForm)
+    pnlConteudo: TPanel;
+    QuickRep1: TQRPQuickrep;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmResultadoRel: TFrmResultadoRel;
+
+implementation
+
+{$R *.dfm}
+
+end.

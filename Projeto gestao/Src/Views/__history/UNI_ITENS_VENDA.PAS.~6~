@@ -1,0 +1,79 @@
+unit UNI_ITENS_VENDA;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, IBStoredProc, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrmItensVenda = class(TForm)
+    pnlTopo: TPanel;
+    pnlRodaPe: TPanel;
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    pnlConteudo: TPanel;
+    Qry_ItensVendas: TIBQuery;
+    SP_INSERIR_ITENS_VENDA: TIBStoredProc;
+    lbItem_ID: TLabel;
+    lblVenda_Id: TLabel;
+    lblProdutoID: TLabel;
+    lblQUantidade: TLabel;
+    lblValor: TLabel;
+    edtID: TEdit;
+    edtVenda: TEdit;
+    edtNomedoproduto: TEdit;
+    edtValor: TEdit;
+    edtQuantidade: TEdit;
+    QUERY_PRODUTOS: TIBQuery;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmItensVenda: TFrmItensVenda;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmItensVenda.btnCancelarClick(Sender: TObject);
+begin
+Close;
+end;
+
+procedure TFrmItensVenda.btnGravarClick(Sender: TObject);
+var
+  VendaId, ProdutoID : Integer;
+begin
+try
+  with SP_INSERIR_ITENS_VENDA do
+  begin
+  VendaId := Qry_ItensVendas.FieldByName('VendaId')
+  ProdutoID := Qry_ItensVendas.FieldByName('PRODUTO_ID');
+  ParamByName('PRODUTO_ID').AsInteger := ProdutoID;
+  ParamByName('VENDA_ID').AsInteger := VendaId;
+  ParamByName('ITEM_ID').AsInteger := edtID;
+  ParamByName('QUANTIDADE').AsInteger
+  ParamByName('VALOR').AsCurrency := edtValor;
+
+    ExecProc;
+  end;
+
+Except on E:Exception do
+   begin
+     showmessage('Erro:'+E.message+#13+'Operação Cancelada');
+     ViewPrincipal.TrBanco.Rollback;
+     Abort;
+   end;
+end;
+   showmessage('REGISTRO GRAVADO COM SUCESSO!');
+   ViewPrincipal.TrBanco.Commit;
+  end;
+
+
+end.

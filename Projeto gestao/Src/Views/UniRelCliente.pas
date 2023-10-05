@@ -1,0 +1,43 @@
+unit UniRelCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, QRCtrls, QuickRpt, ExtCtrls, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrmRelCliente = class(TForm)
+    pnlConteudo: TPanel;
+    QuickRep1: TQuickRep;
+    QRBand1: TQRBand;
+    QRLabel6: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRSysData2: TQRSysData;
+    QRSysData1: TQRSysData;
+    QRDBText12: TQRDBText;
+    QRSysData3: TQRSysData;
+    QRBand2: TQRBand;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRBand3: TQRBand;
+    SummaryBand1: TQRBand;
+    QRDBText5: TQRDBText;
+    QRLabel1: TQRLabel;
+    QryMovCliente: TIBQuery;
+    QRLabel2: TQRLabel;
+    QRDBText1: TQRDBText;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmRelCliente: TFrmRelCliente;
+
+implementation
+
+{$R *.dfm}
+
+end.

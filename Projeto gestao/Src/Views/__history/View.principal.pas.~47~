@@ -1,0 +1,234 @@
+unit View.principal;
+
+interface
+
+uses
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  ExtCtrls,
+  Buttons,
+  IBDatabase,
+  UniCliente,
+  DB,
+  UniFornecedores,
+  UniProdutos,
+  UnitCaixa,
+  UniVendas,
+  jpeg,
+  pngimage,
+  UNI_ITENS_VENDA, ActnList, ImgList;
+
+
+type
+  TViewPrincipal = class(TForm)
+    pnlTopo: TPanel;
+    pnlMenu: TPanel;
+    pnlBackPrincipal: TPanel;
+    pnlRodaPe: TPanel;
+    pnlConteudo: TPanel;
+    pnlLogo: TPanel;
+    pnlLineLogo: TPanel;
+    pnlConteudoLogo: TPanel;
+    lblTituloEmpresa: TLabel;
+    lblDescriçaoEmpresa: TLabel;
+    pnlVersao: TPanel;
+    lblVersaoTitulo: TLabel;
+    lblVersao: TLabel;
+    pnlUsuario: TPanel;
+    pnlLineUsuario: TPanel;
+    pnlImgUsuario: TPanel;
+    imgUsuario: TImage;
+    pnlDadosUsuarios: TPanel;
+    lblUsuario: TLabel;
+    lblPerfil: TLabel;
+    pnlLicenciado: TPanel;
+    pnlLineRodape: TPanel;
+    pnlConteudoLicença: TPanel;
+    lblLicenciado1: TLabel;
+    lblNomeEmpresa: TLabel;
+    pnlSair: TPanel;
+    pnlShapeMenu: TPanel;
+    ShapeMenu: TShape;
+    pnlDadosMenu: TPanel;
+    btnClientes: TSpeedButton;
+    btnCaixa: TSpeedButton;
+    btnFornecedores: TSpeedButton;
+    btnProdutos: TSpeedButton;
+    btnConfiguraçoes: TSpeedButton;
+    btnSair: TSpeedButton;
+    IbBanco: TIBDatabase;
+    TrBanco: TIBTransaction;
+    btnVENDAS: TSpeedButton;
+    imgConteudo: TImage;
+    btnITENS_VENDA: TSpeedButton;
+    ActionList1: TActionList;
+    ImageList1: TImageList;
+    actCliente: TAction;
+ // procedure FecharClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+    procedure btnClientesClick(Sender: TObject);
+    procedure btnCaixaClick(Sender: TObject);
+    procedure btnFornecedoresClick(Sender: TObject);
+    procedure btnProdutosClick(Sender: TObject);
+    procedure btnConfiguraçoesClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lblTituloEmpresaMouseEnter(Sender: TObject);
+    procedure pnlRodaPeMouseLeave(Sender: TObject);
+    procedure lblTituloEmpresaMouseLeave(Sender: TObject);
+    procedure lblDescriçaoEmpresaMouseEnter(Sender: TObject);
+    procedure lblDescriçaoEmpresaMouseLeave(Sender: TObject);
+    procedure btnVENDASClick(Sender: TObject);
+    procedure btnITENS_VENDAClick(Sender: TObject);
+  private
+    procedure GetLineMenu (Sender : TObject);
+
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ViewPrincipal: TViewPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TViewPrincipal.btnCaixaClick(Sender: TObject);
+begin
+ GetLineMenu(Sender);
+  Application.CreateForm(TFrmCaixa, FrmCaixa);
+  try
+    FrmCaixa.ShowModal;
+  finally
+    FreeAndNil(FrmCaixa);
+  end;
+end;
+//Caixa
+
+
+procedure TViewPrincipal.btnClientesClick(Sender: TObject);
+begin
+  GetLineMenu(Sender);
+  Application.CreateForm(TFRMCliente, FrmCliente);
+  try
+    FrmCliente.ShowModal;
+  finally
+    FreeAndNil(FrmCliente);
+  end;
+  end;
+//Clientes
+
+procedure TViewPrincipal.btnFornecedoresClick(Sender: TObject);
+begin
+ GetLineMenu(Sender);
+
+  Application.CreateForm(TFrmFornecedores, FrmFornecedores);
+  try
+    FrmFornecedores.ShowModal;
+  finally
+    FreeAndNil(FrmFornecedores);
+  end;
+end;
+//Fornecedores
+
+
+procedure TViewPrincipal.btnITENS_VENDAClick(Sender: TObject);
+begin
+GetLineMenu(Sender);
+  Application.CreateForm(TFrmItensVenda,FrmItensVenda);
+  try
+    FrmItensVenda.ShowModal;
+  finally
+    FreeAndNil(FrmItensVenda);
+  end;
+end;
+//ItensVenda
+
+procedure TViewPrincipal.btnProdutosClick(Sender: TObject);
+begin
+   GetLineMenu(Sender);
+  Application.CreateForm(TFrmProdutos, FrmProdutos);
+  try
+    FrmProdutos.ShowModal;
+  finally
+    FreeAndNil(FrmProdutos);
+  end;
+end;
+//Produtos
+
+procedure TViewPrincipal.btnVENDASClick(Sender: TObject);
+begin
+  GetLineMenu(Sender);
+  Application.CreateForm(TFrmVendas, FrmVendas);
+  try
+    FrmVendas.ShowModal;
+  finally
+    FreeAndNil(FrmVendas);
+  end;
+end;
+//Vendas
+
+ procedure TViewPrincipal.btnConfiguraçoesClick(Sender: TObject);
+begin
+   GetLineMenu(Sender);
+end;
+//Config
+
+procedure TViewPrincipal.btnSairClick(Sender: TObject);
+begin
+ Application.Terminate;
+end;
+
+procedure TViewPrincipal.FormShow(Sender: TObject);
+begin
+ GetLineMenu(btnClientes);
+
+ if NOT(IbBanco.Connected) then
+      IbBanco.Connected := True;
+end;
+//Show
+
+procedure TViewPrincipal.GetLineMenu(Sender: TObject);
+begin
+ ShapeMenu.Left := 0;
+ ShapeMenu.Top := 0;
+ ShapeMenu.Height := TSpeedButton(Sender).Height;
+ ShapeMenu.Top :=  TSpeedButton(Sender).Top;
+ pnlShapeMenu.Repaint;
+end;
+
+procedure TViewPrincipal.lblDescriçaoEmpresaMouseEnter(Sender: TObject);
+begin
+  lblDescriçaoEmpresa.Font.Color := $000FBBD9
+end;
+
+procedure TViewPrincipal.lblDescriçaoEmpresaMouseLeave(Sender: TObject);
+begin
+  lblDescriçaoEmpresa.Font.Color := clWhite
+end;
+
+procedure TViewPrincipal.lblTituloEmpresaMouseEnter(Sender: TObject);
+begin
+lblTituloEmpresa.Font.color := $000FBBD9
+end;
+
+procedure TViewPrincipal.lblTituloEmpresaMouseLeave(Sender: TObject);
+begin
+  lblTituloEmpresa.Font.color := clWhite;
+end;
+
+procedure TViewPrincipal.pnlRodaPeMouseLeave(Sender: TObject);
+begin
+  lblTituloEmpresa.Font.color := clWhite;
+end;
+
+end.

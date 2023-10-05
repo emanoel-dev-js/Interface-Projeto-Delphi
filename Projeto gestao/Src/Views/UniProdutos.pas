@@ -1,0 +1,185 @@
+unit UniProdutos;
+
+interface
+
+uses
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  ExtCtrls,
+  StdCtrls,
+  IBStoredProc,
+  DB,
+  IBCustomDataSet,
+  IBQuery,
+  DBCtrls,
+  Mask,
+  rxToolEdit,
+  rxCurrEdit,
+  Buttons,
+  ComCtrls;
+
+type
+  TFrmProdutos = class(TForm)
+    pnlRodaPe: TPanel;
+    pnlTopo: TPanel;
+    pnlConteudo: TPanel;
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    Codigo: TStaticText;
+    lblNOME_PRODUTO: TLabel;
+    lblPRO_BARRAS: TLabel;
+    txtUNI: TStaticText;
+    SP_PRODUTO: TIBStoredProc;
+    lblFornecedores: TLabel;
+    QryFornecedores: TIBQuery;
+    DataSourceFornecedores: TDataSource;
+    pnlCODIGO: TPanel;
+    pnlDESCRICAO: TPanel;
+    pnlFORNECEDORES: TPanel;
+    pnlCODIGODEBARRAS: TPanel;
+    pnlUNIDADE_MEDIDA: TPanel;
+    edtPRO_DESCRICAO: TEdit;
+    dblkcbbFORNECEDOR: TDBLookupComboBox;
+    edtPRO_BARRAS: TEdit;
+    cbbUNIDADE: TComboBox;
+    pnlValor: TPanel;
+    CurredtValorUni: TCurrencyEdit;
+    lblValorUni: TLabel;
+    pnl1: TPanel;
+    edt1: TEdit;
+    txtForId: TStaticText;
+    BtnLocalizar: TSpeedButton;
+    pnlDATA: TPanel;
+    DateTimePicker1: TDateTimePicker;
+    edtPRO_ID: TEdit;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure edtPRO_CODIGOChange(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dblkcbbFORNECEDORCloseUp(Sender: TObject);
+    procedure BtnLocalizarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmProdutos: TFrmProdutos;
+
+implementation
+
+uses View.principal, UniLocProdutos;
+
+{$R *.dfm}
+
+procedure TFrmProdutos.FormShow(Sender: TObject);
+begin
+  QryFornecedores.FetchAll;
+end;
+
+procedure TFrmProdutos.btnGravarClick(Sender: TObject);
+begin
+if Not (ViewPrincipal.TrBanco.InTransaction) then
+  ViewPrincipal.TrBanco.StartTransaction;
+
+try
+  with SP_PRODUTO do
+  begin
+    ParamByName('FOR_ID').AsInteger           := StrToIntDef(edt1.Text, 0);
+    ParamByName('PRO_ID').AsInteger           := StrToIntDef(edtPRO_ID.Text, 0);
+    ParamByName('PRO_NOME').AsString          := edtPRO_DESCRICAO.Text;
+    ParamByName('PRO_TIPO').AsString          := cbbUNIDADE.Text;
+    ParamByName('PRO_VALOR').AsFloat          := CurredtValorUni.Value;
+    ParamByName('PRO_CODIGO_BARRAS').AsString := edtPRO_BARRAS.Text;
+    ParamByName('PRO_DESCRICAO').AsString     := edtPRO_DESCRICAO.Text;
+    ParamByName('PRO_DATA_CAD').AsDate        := DateTimePicker1.Date;
+    ExecProc;
+  end;
+
+Except on E:Exception do
+   begin
+     showmessage('Erro:'+E.message+#13+'Operação Cancelada');
+     ViewPrincipal.TrBanco.Rollback;
+     Abort;
+   end;
+end;
+   showmessage('REGISTRO GRAVADO COM SUCESSO!');
+   ViewPrincipal.TrBanco.Commit;
+
+   edtPRO_ID.Clear;
+   edtPRO_DESCRICAO.Clear;
+   cbbUNIDADE.Clear;
+   edtPRO_BARRAS.Clear;
+   edt1.Clear;
+   CurredtValorUni.Clear;
+   dblkcbbFORNECEDOR.KeyValue := null;
+
+  end;
+
+procedure TFrmProdutos.BtnLocalizarClick(Sender: TObject);
+begin
+Application.CreateForm(TFrmLocProdutos, FrmLocProdutos);
+  try
+    FrmLocProdutos.ShowModal;
+  finally
+    FreeAndNil(FrmLocProdutos);
+  end;
+end;
+
+procedure TFrmProdutos.dblkcbbFORNECEDORCloseUp(Sender: TObject);
+begin
+if not VarIsNull(dblkcbbFORNECEDOR.KeyValue) then
+    edt1.Text := IntToStr(dblkcbbFORNECEDOR.KeyValue)
+  else
+    edt1.Text := '';
+end;
+
+procedure TFrmProdutos.edtPRO_CODIGOChange(Sender: TObject);
+//var
+//  ProdutoNome : string;
+begin
+
+ { if Trim(edtPRO_ID.Text) = '' then Exit;
+
+  with QryProduto do
+  begin
+    Close;
+    SQL.Text := 'SELECT PRO_NOME FROM PRODUTOS WHERE PRO_ID = :PRO_ID';
+    Params.ParamByName('PRO_ID').AsInteger := StrToIntDef(edtPRO_ID.Text, 0);
+    Open;
+
+    if not IsEmpty then
+      ProdutoNome := FieldByName('PRO_NOME').AsString
+    else
+      ProdutoNome := '';
+
+   Close;
+  end;
+
+ edtPRO_DESCRICAO.text := ProdutoNome;   }
+end;
+
+procedure TFrmProdutos.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_ESCAPE then
+    Self.Close;
+end;
+
+
+
+procedure TFrmProdutos.btnCancelarClick(Sender: TObject);
+begin
+  Close
+end;
+
+end.
